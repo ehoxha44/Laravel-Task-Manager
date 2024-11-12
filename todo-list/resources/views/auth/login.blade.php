@@ -13,9 +13,14 @@
     <div class="card shadow-lg border-0 rounded-4" style="width: 22rem;">
         <div class="card-body p-5">
             <h3 class="card-title mb-4 text-center fw-bold text-primary">Login</h3>
-            
+            <!-- @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger">{{ $errors->first('email') }}</div>
+            @endif -->
             <!-- Login Form -->
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">Email</label>
