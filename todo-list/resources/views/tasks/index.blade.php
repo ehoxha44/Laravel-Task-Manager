@@ -10,6 +10,14 @@
 
 
 <div class="container mt-4">
+    <div class="row">
+        <div class="col-12 text-end mb-3">
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+            </form>
+        </div>
+    </div>
     <h3 class="text-center mb-4">All Tasks</h3>
     <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3">Create Task</a>
     <table class="table table-bordered">

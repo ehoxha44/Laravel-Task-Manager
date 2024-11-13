@@ -29,7 +29,7 @@ class LoginController extends Controller
         $credentials = $request->validated(); 
 
         if ($this->authService->login($credentials)) {
-            return redirect()->intended('/main-page')->with('success', 'Logged in successfully!');
+            return redirect()->route('tasks.index')->with('success', 'Logged in successfully!');
         }
 
         return back()->withErrors([
