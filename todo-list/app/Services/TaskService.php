@@ -7,31 +7,32 @@ use Illuminate\Http\Request;
 
 class TaskService
 {
-    public function getAllTasks()
+    public function getTasksForUser($userId)
     {
-        return Task::all();
+        return Task::where('user_id', $userId)->get();
     }
 
-    public function getTaskById($id)
+    public function getTaskById($id, $userId)
     {
-        return Task::findOrFail($id);
+        return Task::where('user_id', $userId)->findOrFail($id);
     }
 
-    public function createTask(array $data)
+    public function createTask(array $data, $userId)
     {
+        $data['user_id'] = $userId;
         return Task::create($data);
     }
 
-    public function updateTask($id, array $data)
+    public function updateTask($id, array $data, $userId)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::where('user_id', $userId)->findOrFail($id);
         $task->update($data);
         return $task;
     }
 
-    public function deleteTask($id)
+    public function deleteTask($id, $userId)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::where('user_id', $userId)->findOrFail($id);
         return $task->delete();
     }
 }

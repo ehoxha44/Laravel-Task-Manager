@@ -26,7 +26,7 @@ class TaskController extends Controller
     // Display a list of all tasks
     public function index()
     {
-        $tasks = $this->taskService->getAllTasks();
+        $tasks = $this->taskService->getTasksForUser(auth()->id());
 
         return view('tasks.index', compact('tasks'));
     }
@@ -34,7 +34,7 @@ class TaskController extends Controller
     // Display the edit form for a specific task
     public function edit($id)
     {
-        $task = $this->taskService->getTaskById($id); 
+        $task = $this->taskService->getTaskById($id, auth()->id()); 
 
         return view('tasks.edit', compact('task'));
     }
@@ -43,7 +43,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {        
         $data = $request->validated();
-        $this->taskService->createTask($data); 
+        $this->taskService->createTask($data, auth()->id()); 
 
         return redirect()->route('tasks.index')->with('success', 'Task created successfully!');
     }
@@ -52,14 +52,14 @@ class TaskController extends Controller
     public function update(TaskRequest $request, $id)
     {
         $data = $request->validated();
-        $this->taskService->updateTask($id, $data);
+        $this->taskService->updateTask($id, $data, auth()->id());
         
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully');
     }
 
     public function destroy($id)
     {
-        $this->taskService->deleteTask($id);
+        $this->taskService->deleteTask($id, auth()->id());
     
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully');
     }
@@ -67,7 +67,7 @@ class TaskController extends Controller
     // Show a specific task
     public function show($id)
     {
-        $task = $this->taskService->getTaskById($id); 
+        $task = $this->taskService->getTaskById($id, auth()->id()); 
 
         return view('tasks.show', compact('task'));
     }
