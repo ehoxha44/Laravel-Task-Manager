@@ -6,9 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
+use App\Services\AuthService;
 
 class LoginController extends Controller
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     // Show the login form
     public function showLoginForm()
     {
@@ -18,9 +26,9 @@ class LoginController extends Controller
     // Handle login request
     public function login(LoginRequest $request)
     {
-        $credentials = $request->validated();
+        $credentials = $request->validated(); 
 
-        if (Auth::attempt($credentials)) {
+        if ($this->authService->login($credentials)) {
             return redirect()->intended('/main-page')->with('success', 'Logged in successfully!');
         }
 
@@ -29,9 +37,10 @@ class LoginController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
+    // Handle logout request
+    public function logout()
     {
-        Auth::logout();
+        $this->authService->logout();
         return redirect('/login')->with('success', 'Logged out successfully!');
     }
 }
