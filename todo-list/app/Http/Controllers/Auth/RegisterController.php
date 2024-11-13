@@ -28,9 +28,14 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-
-        $user = $this->authService->register($data);
-
-        return redirect()->intended('/main-page')->with('success', 'Registration successful!');
+    
+        try {
+            $user = $this->authService->register($data);
+    
+            return back()->with('success', 'Registration successful!');
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', 'Registration failed. Please try again.');
+        }
     }
+    
 }

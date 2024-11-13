@@ -18,6 +18,25 @@
             </form>
         </div>
     </div>
+
+    <!-- Success message -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <!-- Error message -->
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <h3 class="text-center mb-4">All Tasks</h3>
 
     <form action="{{ route('tasks.index') }}" method="GET" class="row g-3 mb-3">
@@ -43,6 +62,12 @@
             <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Reset</a>
         </div>
     </form>
+
+    @if($noTasksFound)
+        <div class="alert alert-info">
+            No tasks found matching the selected filters.
+        </div>
+    @endif
 
     <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3">Create Task</a>
     <table class="table table-bordered">
