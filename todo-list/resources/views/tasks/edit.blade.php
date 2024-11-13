@@ -8,24 +8,25 @@
 </head>
 <body>
 
+
 <div class="container mt-4">
     <h3 class="text-center mb-4">Edit Task</h3>
-    <form action="" method="">
-        <!-- @csrf
-        @method('PUT') -->
+    <form action="{{ route('tasks.update', $task->id) }}" method="POST">
+        @csrf
+        @method('PUT')
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" name="title" id="title" class="form-control" value="" required>
+            <input type="text" name="title" id="title" class="form-control" value="{{ $task->title }}" required>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea name="description" id="description" class="form-control" rows="4" required>description</textarea>
+            <textarea name="description" id="description" class="form-control" rows="4" required>{{ $task->description }}</textarea>
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
             <select name="status" id="status" class="form-select">
-                <option value="0">Pending</option>
-                <option value="1">Completed</option>
+                <option value="0" {{ $task->status == 0 ? 'selected' : '' }}>Pending</option>
+                <option value="1" {{ $task->status == 1 ? 'selected' : '' }}>Completed</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Update Task</button>

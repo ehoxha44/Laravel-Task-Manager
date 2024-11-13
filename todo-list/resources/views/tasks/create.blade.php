@@ -10,8 +10,8 @@
 
 <div class="container mt-4">
     <h3 class="text-center mb-4">Create New Task</h3>
-    <form action="" method="">
-        <!-- @csrf -->
+    <form action="{{ route('tasks.store') }}" method="POST">
+        @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" name="title" id="title" class="form-control" required>

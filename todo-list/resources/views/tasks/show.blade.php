@@ -12,14 +12,13 @@
     <h3 class="text-center mb-4">View Task</h3>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">title</h5>
-            <p class="card-text">description</p>
+            <h5 class="card-title">{{ $task->title }}</h5>
+            <p class="card-text">{{ $task->description }}</p>
             <p class="card-text">
-                <strong>Created At:</strong> date format
+                <strong>Created At:</strong> {{ $task->created_at->format('F d, Y H:i') }}
             </p>
             <p class="card-text">
-                <strong>Status:</strong> 
-                
+                <strong>Status:</strong> {{ $task->status ? 'Completed' : 'Pending' }}
             </p>
             <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Back to Tasks</a>
         </div>
