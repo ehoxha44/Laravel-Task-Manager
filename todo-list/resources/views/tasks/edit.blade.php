@@ -29,6 +29,15 @@
                 <option value="1" {{ $task->status == 1 ? 'selected' : '' }}>Completed</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select name="priority" id="priority" class="form-select" required>
+                <option value="1" {{ $task->priority == 1 ? 'selected' : '' }}>High</option>
+                <option value="2" {{ $task->priority == 2 ? 'selected' : '' }}>Medium</option>
+                <option value="3" {{ $task->priority == 3 ? 'selected' : '' }}>Low</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Update Task</button>
     </form>
 </div>

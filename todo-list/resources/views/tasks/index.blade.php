@@ -18,13 +18,64 @@
             </form>
         </div>
     </div>
+
+    <!-- Success message -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <!-- Error message -->
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <h3 class="text-center mb-4">All Tasks</h3>
+
+    <form action="{{ route('tasks.index') }}" method="GET" class="row g-3 mb-3">
+        <div class="col-md-4">
+            <label for="priority" class="form-label">Filter by Priority</label>
+            <select name="priority" id="priority" class="form-select">
+                <option value="">All</option>
+                <option value="1" {{ request('priority') == '1' ? 'selected' : '' }}>High</option>
+                <option value="2" {{ request('priority') == '2' ? 'selected' : '' }}>Medium</option>
+                <option value="3" {{ request('priority') == '3' ? 'selected' : '' }}>Low</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="status" class="form-label">Filter by Status</label>
+            <select name="status" id="status" class="form-select">
+                <option value="">All</option>
+                <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Completed</option>
+                <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Pending</option>
+            </select>
+        </div>
+        <div class="col-md-4 align-self-end">
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+            <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Reset</a>
+        </div>
+    </form>
+
+    @if($noTasksFound)
+        <div class="alert alert-info">
+            No tasks found matching the selected filters.
+        </div>
+    @endif
+
     <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3">Create Task</a>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Priority</th>
                 <th>Creation Date</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -35,6 +86,12 @@
                 <tr>
                     <td>{{ $task->title }}</td>
                     <td>{{ $task->description }}</td>
+                    <td>
+                        @if($task->priority == 1) High
+                        @elseif($task->priority == 2) Medium
+                        @elseif($task) Low
+                        @endif
+                    </td>
                     <td>{{ $task->created_at->format('F d, Y H:i') }}</td>
                     <td>{{ $task->status ? 'Completed' : 'Pending' }}</td>
                     <td>

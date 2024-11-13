@@ -15,6 +15,14 @@
             <h5 class="card-title">{{ $task->title }}</h5>
             <p class="card-text">{{ $task->description }}</p>
             <p class="card-text">
+                <strong>Priority:</strong> 
+                @if($task->priority == 1) High
+                @elseif($task->priority == 2) Medium
+                @else Low
+                @endif
+            </p>
+
+            <p class="card-text">
                 <strong>Created At:</strong> {{ $task->created_at->format('F d, Y H:i') }}
             </p>
             <p class="card-text">

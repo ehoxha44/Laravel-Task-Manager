@@ -13,12 +13,13 @@
     <div class="card shadow-lg border-0 rounded-4" style="width: 22rem;">
         <div class="card-body p-5">
             <h3 class="card-title mb-4 text-center fw-bold text-primary">Login</h3>
-            <!-- @if(session('success'))
+            @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
-            @if($errors->any())
-                <div class="alert alert-danger">{{ $errors->first('email') }}</div>
-            @endif -->
+            
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <!-- Login Form -->
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
@@ -39,6 +40,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100 rounded-pill btn-lg">Login</button>
+                <a href="{{ route('main-page') }}" class="btn btn-secondary mt-5">Back to main page</a>
             </form>
         </div>
     </div>

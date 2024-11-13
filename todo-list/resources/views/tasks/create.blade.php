@@ -27,6 +27,16 @@
                 <option value="1">Completed</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select name="priority" id="priority" class="form-select" required>
+                <option value="" selected disabled>-</option>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Create Task</button>
     </form>
 </div>
