@@ -24,12 +24,25 @@ class TaskController extends Controller
     }
 
     // Display a list of all tasks
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = $this->taskService->getTasksForUser(auth()->id());
+        $query = $this->taskService->getTasksForUser(auth()->id());
 
+        // Apply priority filter if it's set
+        if ($request->filled('priority')) {
+            $query->where('priority', $request->priority);
+        }
+    
+        // Apply status filter if it's set
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+    
+        $tasks = $query->get();
+    
         return view('tasks.index', compact('tasks'));
     }
+    
 
     // Display the edit form for a specific task
     public function edit($id)

@@ -9,7 +9,7 @@ class TaskService
 {
     public function getTasksForUser($userId)
     {
-        return Task::where('user_id', $userId)->get();
+            return Task::where('user_id', $userId); 
     }
 
     public function getTaskById($id, $userId)
